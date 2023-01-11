@@ -21,10 +21,10 @@ const loginUser = async (req, res) => {
   return res.status(200).json({ token });
 };
 
-// const createUser = async (req, res) => {
-//   const result = await service.createUser(req.body)
-//   return res.status(200).json({ message: 'ok' });
-// }
+const createUser = async (req, res) => {
+  const result = await service.createUser(req.body)
+  return res.status(200).json({ message: 'ok' });
+}
 
 module.exports = {
   createUser,
