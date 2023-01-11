@@ -1,6 +1,7 @@
 const express = require('express');
-const { loginUser, createUser } = require('./controllers/user.controller');
+const { loginUser, createUser, getUsers } = require('./controllers/user.controller');
 const { name, email, password, userExistence } = require('./middlewares/userValidations');
+const verifyToken = require('./middlewares/jwt/verifyToken');
 // ...
 
 const app = express();
@@ -16,6 +17,12 @@ app.post(
   password,
   userExistence,
   createUser,
+);
+
+app.get(
+  '/user',
+  verifyToken,
+  getUsers,
 );
 
 // ...

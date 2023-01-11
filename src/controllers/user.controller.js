@@ -5,7 +5,7 @@ const requiredFieldsMsg = 'Some required fields are missing';
 const invalidFieldsMsg = 'Invalid fields';
 
 const jwtConfig = {
-  expiresIn: '15min',
+  expiresIn: '1w',
   algorithm: 'HS256',
 };
 
@@ -16,17 +16,33 @@ const loginUser = async (req, res) => {
   }
   const result = await service.loginUser(email, password);
   if (!result) return res.status(400).json({ message: invalidFieldsMsg });
-  delete req.body.password;
-  const token = jwt.sign({ data: req.body }, process.env.JWT_SECRET, jwtConfig);
+  const { password: _, ...bodyWithoutPassword } = req.body;
+  const token = jwt.sign({ data: bodyWithoutPassword }, 'secretJWT', jwtConfig);
   return res.status(200).json({ token });
 };
 
 const createUser = async (req, res) => {
   try {
     await service.createUser(req.body);
-    delete req.body.password;
-    const token = jwt.sign({ data: req.body }, process.env.JWT_SECRET, jwtConfig);
+    const { password: _, ...bodyWithoutPassword } = req.body;
+    const token = jwt.sign({ data: bodyWithoutPassword }, process.env.JWT_SECRET, jwtConfig);
     return res.status(201).json({ token });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getUsers = async (_req, res) => {
+  try {
+    const users = await service.getUsers();
+    const usersWithoutPassword = users.map(({ password: _, id, displayName, email, image }) => (
+      {
+        id,
+        displayName,
+        email,
+        image,
+      }));
+    return res.status(200).json(usersWithoutPassword);
   } catch (error) {
     console.log(error);
   }
@@ -35,4 +51,5 @@ const createUser = async (req, res) => {
 module.exports = {
   createUser,
   loginUser,
+  getUsers,
 };

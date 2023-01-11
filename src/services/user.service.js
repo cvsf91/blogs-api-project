@@ -5,6 +5,11 @@ const env = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[env]);
 const { User } = require('../models');
 
+const getUsers = async () => {
+  const users = await User.findAll();
+  return users;
+};
+
 const loginUser = async (email, password) => {
   const [result] = await User.findAll({
     where: {
@@ -30,6 +35,7 @@ const createUser = async ({ displayName, email, password, image }) => {
 };
 
 module.exports = {
+  getUsers,
   createUser,
   loginUser,
 };
