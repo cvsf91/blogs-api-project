@@ -9,12 +9,12 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       }
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     return queryInterface.dropTable('categories');
   },
 };
