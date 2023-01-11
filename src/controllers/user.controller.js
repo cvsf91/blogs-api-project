@@ -22,8 +22,14 @@ const loginUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  await service.createUser(req.body);
-  return res.status(200).json({ message: 'ok' });
+  try {
+    await service.createUser(req.body);
+    delete req.body.password;
+    const token = jwt.sign({ data: req.body }, process.env.JWT_SECRET, jwtConfig);
+    return res.status(201).json({ token });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
