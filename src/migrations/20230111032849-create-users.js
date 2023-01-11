@@ -8,7 +8,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       displayName: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
         field: 'display_name',
       },
@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       image: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
     });
