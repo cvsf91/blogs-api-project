@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const service = require('../services/user.service');
 
-const requiredFieldsMsg = "Some required fields are missing";
-const invalidFieldsMsg = "Invalid fields";
+const requiredFieldsMsg = 'Some required fields are missing';
+const invalidFieldsMsg = 'Invalid fields';
 
 const jwtConfig = {
   expiresIn: '15min',
@@ -16,17 +16,17 @@ const loginUser = async (req, res) => {
   }
   const result = await service.loginUser(email, password);
   if (!result) return res.status(400).json({ message: invalidFieldsMsg });
-  delete req.body.password
-  const token = jwt.sign({ data: req.body }, process.env.JWT_SECRET, jwtConfig)
+  delete req.body.password;
+  const token = jwt.sign({ data: req.body }, process.env.JWT_SECRET, jwtConfig);
   return res.status(200).json({ token });
 };
 
 const createUser = async (req, res) => {
-  const result = await service.createUser(req.body)
+  await service.createUser(req.body);
   return res.status(200).json({ message: 'ok' });
-}
+};
 
 module.exports = {
   createUser,
   loginUser,
-}
+};
