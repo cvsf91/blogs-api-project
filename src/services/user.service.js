@@ -5,10 +5,20 @@ const config = require('../config/config');
 const env = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[env]);
 
-const createUser = async ({ email, password }) => {
+const loginUser = async (email, password) => {
+  const [result] = await User.findAll({
+    where: {
+      email,
+      password,
+    }
+  });
+  return result;
+}
+
+const createUser = async ({ displayName, email, password, image }) => {
   try {
     const result = await sequelize.transaction(async (t) => {
-      const user = User.create({ email, password },
+      const user = User.create({ displayName, email, password, image },
         { transaction: t });
       return user;
     });
@@ -21,4 +31,5 @@ const createUser = async ({ email, password }) => {
 
 module.exports = {
   createUser,
+  loginUser
 }

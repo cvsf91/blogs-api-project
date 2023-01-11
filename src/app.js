@@ -1,12 +1,12 @@
 const express = require('express');
-const { createUser } = require('./controllers/user.controller');
+const { loginUser } = require('./controllers/user.controller');
 // ...
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/login', createUser);
+app.post('/login', loginUser);
 
 // ...
 
