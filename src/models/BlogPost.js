@@ -33,6 +33,8 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: 'updated',
       tableName: 'blog_posts',
       underscored: true,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     }
   );
 

@@ -6,6 +6,17 @@ const createPost = async (req, res) => {
   return res.status(201).json(post);
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await service.deletePost(id);
+    return res.send(204);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   createPost,
+  deletePost,
 };

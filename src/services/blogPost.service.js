@@ -18,6 +18,19 @@ const createPost = async ({ title, content, categoryIds }, email) => {
   return result;
 };
 
+const deletePost = async (id) => {
+  const result = await sequelize.transaction(async (t) => {
+    await PostCategory.destroy({
+      where: { postId: id },
+    }, { transaction: t });
+    await BlogPost.destroy({
+      where: { id },
+    }, { transaction: t });
+  });
+  return result;
+};
+
 module.exports = {
   createPost,
+  deletePost,
 };

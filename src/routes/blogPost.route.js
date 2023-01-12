@@ -3,8 +3,9 @@ const verifyToken = require('../middlewares/jwt/verifyToken');
 const {
   categoryIdsValidation,
   fieldsValidation,
+  validateDelete,
 } = require('../middlewares/blogPostValidations');
-const { createPost } = require('../controllers/blogPost.controller');
+const { createPost, deletePost } = require('../controllers/blogPost.controller');
 
 const route = express.Router();
 
@@ -14,6 +15,13 @@ route.post(
   fieldsValidation,
   categoryIdsValidation,
   createPost,
+);
+
+route.delete(
+  '/:id',
+  verifyToken,
+  validateDelete,
+  deletePost,
 );
 
 module.exports = route;

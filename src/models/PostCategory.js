@@ -16,6 +16,8 @@ module.exports = (sequelize, Datatypes) => {
     timestamps: false,
     tableName: 'posts_categories',
     underscored: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   });
 
   PostCategory.associate = (models) => {
