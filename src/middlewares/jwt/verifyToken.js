@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const { decode } = require('../../jwt/token');
 
 const verifyToken = (req, res, next) => {
   const token = req.header('Authorization');
@@ -6,15 +6,14 @@ const verifyToken = (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const result = jwt.verify(token, 'secretJWT');
+    const result = decode(token);
     if (result.data) {
+      req.token = result;
       return next();
     }
   } catch (_e) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
-  const result = jwt.verify(token, 'secretJWT');
-  console.log('payload:', result);
   return next();
 };
 
