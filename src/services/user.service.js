@@ -34,8 +34,14 @@ const createUser = async ({ displayName, email, password, image }) => {
   }
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(id);
+  return user;
+};
+
 module.exports = {
   getUsers,
   createUser,
   loginUser,
+  getUserById,
 };

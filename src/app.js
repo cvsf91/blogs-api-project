@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginUser, createUser, getUsers } = require('./controllers/user.controller');
+const { loginUser, createUser, getUsers, getUserById } = require('./controllers/user.controller');
 const { name, email, password, userExistence } = require('./middlewares/userValidations');
 const verifyToken = require('./middlewares/jwt/verifyToken');
 // ...
@@ -23,6 +23,12 @@ app.get(
   '/user',
   verifyToken,
   getUsers,
+);
+
+app.get(
+  '/user/:id',
+  verifyToken,
+  getUserById,
 );
 
 // ...
