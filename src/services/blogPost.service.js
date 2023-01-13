@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const config = require('../config/config');
 
 const env = process.env.NODE_ENV || 'development';
@@ -83,10 +84,32 @@ const updatePost = async (id, { title, content }) => {
   return post;
 };
 
+const findPostsBySubString = async (string) => {
+  const posts = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.substring]: string } },
+        { content: { [Op.substring]: string } },
+      ],
+    },
+    include: [
+      { model: User,
+        as: 'user',
+        attributes: { exclude: ['password'] } },
+      { model: Category,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+  });
+  return posts;
+};
+
 module.exports = {
   createPost,
   deletePost,
   getPosts,
   getPostById,
   updatePost,
+  findPostsBySubString,
 };

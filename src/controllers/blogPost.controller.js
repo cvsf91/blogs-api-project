@@ -35,10 +35,17 @@ const updatePost = async (req, res) => {
   return res.status(200).json(post);
 };
 
+const findSubstring = async (req, res) => {
+  const { q } = req.query;
+  const posts = await service.findPostsBySubString(q);
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   createPost,
   deletePost,
   getPosts,
   getPostById,
   updatePost,
+  findSubstring,
 };

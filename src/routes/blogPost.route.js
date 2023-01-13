@@ -13,6 +13,7 @@ const {
   getPosts,
   getPostById,
   updatePost,
+  findSubstring,
 } = require('../controllers/blogPost.controller');
 
 const route = express.Router();
@@ -44,6 +45,12 @@ route.get(
   '/',
   verifyToken,
   getPosts,
+);
+
+route.get(
+  '/search',
+  verifyToken,
+  findSubstring,
 );
 
 route.get(
