@@ -5,7 +5,12 @@ const {
   fieldsValidation,
   validateDelete,
 } = require('../middlewares/blogPostValidations');
-const { createPost, deletePost, getPosts } = require('../controllers/blogPost.controller');
+const {
+  createPost,
+  deletePost,
+  getPosts,
+  getPostById,
+} = require('../controllers/blogPost.controller');
 
 const route = express.Router();
 
@@ -28,6 +33,12 @@ route.get(
   '/',
   verifyToken,
   getPosts,
+);
+
+route.get(
+  '/:id',
+  verifyToken,
+  getPostById,
 );
 
 module.exports = route;
