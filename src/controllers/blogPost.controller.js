@@ -16,7 +16,13 @@ const deletePost = async (req, res) => {
   }
 };
 
+const getPosts = async (_req, res) => {
+  const posts = await service.getPosts();
+  return res.status(200).json(posts);
+};
+
 module.exports = {
   createPost,
   deletePost,
+  getPosts,
 };
