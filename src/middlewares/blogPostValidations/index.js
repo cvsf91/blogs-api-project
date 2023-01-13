@@ -1,5 +1,13 @@
 const categoryIdsValidation = require('./categoryIdsValidation');
-const fieldsValidation = require('./fieldsValidation');
+const fieldsCreateValidation = require('./fieldsCreateValidation');
 const validateDelete = require('./validateDeletion');
+const fieldsEditValidation = require('./fieldsEditValidation');
+const validatePostEdit = require('./validatePostEdit');
 
-module.exports = { categoryIdsValidation, fieldsValidation, validateDelete };
+module.exports = {
+  categoryIdsValidation,
+  fieldsCreateValidation,
+  validateDelete,
+  fieldsEditValidation,
+  validatePostEdit,
+};

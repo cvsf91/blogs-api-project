@@ -39,9 +39,15 @@ const getUserById = async (id) => {
   return user;
 };
 
+const getUserByEmail = async (email) => {
+  const [user] = await User.findAll({ where: { email } });
+  return user;
+};
+
 module.exports = {
   getUsers,
   createUser,
   loginUser,
   getUserById,
+  getUserByEmail,
 };
