@@ -33,14 +33,12 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: 'updated',
       tableName: 'blog_posts',
       underscored: true,
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
     }
   );
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'user', onUpdate: 'CASCADE', onDelete: 'CASCADE', hooks: true });
+      { foreignKey: 'userId', as: 'user' });
   };
 
   return BlogPost;

@@ -6,6 +6,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         autoIncrement: true,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        hooks: true,
       },
       title: {
         allowNull: false,
@@ -19,8 +22,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         field: 'user_id',
-        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id',

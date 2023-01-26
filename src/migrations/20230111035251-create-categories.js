@@ -6,6 +6,9 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        hooks: true,
       },
       name: {
         allowNull: false,

@@ -15,14 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
       underscored: true,
       tableName: 'users',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
     }
   );
 
   User.associate = (models) => {
     User.hasMany(models.BlogPost,
-      { foreignKey: 'userId', as: 'blog_post', onDelete: 'CASCADE', onUpdate: 'CASCADE', hooks: true });
+      { foreignKey: 'userId', as: 'blog_post' });
   };
 
   return User;

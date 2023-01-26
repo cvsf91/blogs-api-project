@@ -16,8 +16,6 @@ module.exports = (sequelize, Datatypes) => {
     timestamps: false,
     tableName: 'posts_categories',
     underscored: true,
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
   });
 
   PostCategory.associate = (models) => {
@@ -27,9 +25,6 @@ module.exports = (sequelize, Datatypes) => {
         through: PostCategory,
         foreignKey: 'postId',
         otherKey: 'categoryId',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        hooks: true,
       });
     models.Category.belongsToMany(models.BlogPost,
       {
@@ -37,9 +32,6 @@ module.exports = (sequelize, Datatypes) => {
         through: PostCategory,
         foreignKey: 'categoryId',
         otherKey: 'postId',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        hooks: true,
       });
   };
 

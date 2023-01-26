@@ -57,7 +57,7 @@ const deleteUser = async (req, res) => {
   console.log('ID: ', id);
   try {
     await service.deleteUserById(id);
-    return res.status(204);
+    return res.status(204).send();
   } catch (e) {
     console.log(e);
   }

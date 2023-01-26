@@ -20,16 +20,16 @@ route.get(
   getUsers,
 );
 
-route.get(
-  '/:id',
-  verifyToken,
-  getUserById,
-);
-
 route.delete(
   '/me',
   verifyToken,
   deleteUser,
+);
+
+route.get(
+  '/:id',
+  verifyToken,
+  getUserById,
 );
 
 module.exports = route;
