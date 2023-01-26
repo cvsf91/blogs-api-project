@@ -1,5 +1,5 @@
 const service = require('../services/user.service');
-const { encode } = require('../jwt/token');
+const { encode, decode } = require('../jwt/token');
 
 const requiredFieldsMsg = 'Some required fields are missing';
 const invalidFieldsMsg = 'Invalid fields';
@@ -12,15 +12,15 @@ const loginUser = async (req, res) => {
   const result = await service.loginUser(email, password);
   if (!result) return res.status(400).json({ message: invalidFieldsMsg });
   const { password: _, ...bodyWithoutPassword } = req.body;
-  const token = encode({ data: bodyWithoutPassword });
+  const token = encode({ data: { id: result.id, ...bodyWithoutPassword } });
   return res.status(200).json({ token });
 };
 
 const createUser = async (req, res) => {
   try {
-    await service.createUser(req.body);
+    const id = await service.createUser(req.body);
     const { password: _, ...bodyWithoutPassword } = req.body;
-    const token = encode({ data: bodyWithoutPassword });
+    const token = encode({ data: { id, ...bodyWithoutPassword } });
     return res.status(201).json({ token });
   } catch (error) {
     console.log(error);
@@ -51,9 +51,22 @@ const getUserById = async (req, res) => {
   return res.status(200).json(user);
 };
 
+const deleteUser = async (req, res) => {
+  const token = req.header('Authorization');
+  const { data: { id } } = decode(token);
+  console.log('ID: ', id);
+  try {
+    await service.deleteUserById(id);
+    return res.status(204);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
   getUsers,
   getUserById,
+  deleteUser,
 };

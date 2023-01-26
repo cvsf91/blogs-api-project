@@ -23,11 +23,11 @@ const loginUser = async (email, password) => {
 const createUser = async ({ displayName, email, password, image }) => {
   try {
     const result = await sequelize.transaction(async (t) => {
-      const user = User.create({ displayName, email, password, image },
+      const user = await User.create({ displayName, email, password, image },
         { transaction: t });
       return user;
     });
-    return result;
+    return result.dataValues.id;
   } catch (error) {
     console.log(error.message);
     throw error;
@@ -44,10 +44,27 @@ const getUserByEmail = async (email) => {
   return user;
 };
 
+const deleteUserById = async (id) => {
+  try {
+    const result = await sequelize.transaction(async (t) => {
+      const res = await User.destroy(
+        { where: { id } },
+        { transaction: t },
+      );
+      return res;
+    });
+    return result;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
   loginUser,
   getUserById,
   getUserByEmail,
+  deleteUserById,
 };

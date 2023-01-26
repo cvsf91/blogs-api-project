@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Category.associate = (models) => {
     Category.hasMany(models.PostCategory,
-      { foreignKey: 'postId', as: 'posts_categories' });
+      { foreignKey: 'postId', as: 'posts_categories', onDelete: 'CASCADE', onUpdate: 'CASCADE', hooks: true });
   }
 
   return Category;

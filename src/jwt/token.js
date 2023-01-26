@@ -4,7 +4,7 @@ const secret = 'secretJWT';
 const jwtConfig = {
   expiresIn: '1w',
   algorithm: 'HS256',
-};  
+};
 
 const encode = (payload) => {
   const token = jwt.sign(payload, secret, jwtConfig);

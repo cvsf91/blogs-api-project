@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getUsers, getUserById } = require('../controllers/user.controller');
+const { createUser, getUsers, getUserById, deleteUser } = require('../controllers/user.controller');
 const { name, email, password, userExistence } = require('../middlewares/userValidations');
 const verifyToken = require('../middlewares/jwt/verifyToken');
 
@@ -24,6 +24,12 @@ route.get(
   '/:id',
   verifyToken,
   getUserById,
+);
+
+route.delete(
+  '/me',
+  verifyToken,
+  deleteUser,
 );
 
 module.exports = route;
